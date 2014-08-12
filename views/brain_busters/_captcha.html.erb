@@ -4,10 +4,11 @@
 		<%= hidden_field_tag :captcha_id, @captcha.id %>
 		
 		<label for="captcha_answer">
-			Spam protection: <%= @captcha.question %>
+			<div class="Label">Verification question/answer<span style="color: red; font-weight: bold; font-size: 120%;">*</span></div>
+      <%= @captcha.question %>
 		</label>
-		
-		<%= text_field_tag :captcha_answer, params[:captcha_answer], :size => 10, :maxlength => 40 %>
-		
+    <div>
+    <input type="text" value="<%= params[:captch_answer] -%>" size="10" default="" required="true" name="captcha_answer" class="Field" />
+    </div>
 	</span>
 <% end %>

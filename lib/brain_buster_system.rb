@@ -10,7 +10,7 @@ module BrainBusterSystem
   # Expose helper methods and setup config for brain buster
   def self.included(obj)
     obj.helper_method :captcha_passed?, :last_captcha_attempt_failed?
-    obj.append_view_path File.expand_path(File.join(RAILS_ROOT, "vendor", "plugins", "brain_buster", "views", "brain_busters"))
+    obj.append_view_path File.expand_path(File.join(Rails.root.to_s, "vendor", "plugins", "brain_buster", "views", "brain_busters"))
     obj.class_eval do
       @@brain_buster_salt ||= "fGr0FXmYQCuW4TiQj/x3yPBTp5lcJ9l6DbO8CUpReDk="
       @@brain_buster_failure_message = "Your captcha answer failed - please try again."
@@ -40,7 +40,7 @@ module BrainBusterSystem
     is_success = captcha.attempt?(params[:captcha_answer])
     debug_brain_buster { is_success ? "Captcha successfully passed." : "Captcha failed - #{ captcha.inspect }" }
     set_captcha_status(is_success)
-    return is_success ? captcha_success : captcha_failure
+    return is_success #? captcha_success : captcha_failure
   end
   
   # Encrypting status strings and the like, as plain text in the cookies is bad for business
